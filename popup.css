@@ -1,0 +1,213 @@
+:root {
+  /* Brave Dark Theme Variables */
+  --bg-color: #1e2025;
+  --bg-surface: #2b2d35;
+  --bg-surface-hover: #363842;
+  --text-primary: #f8f9fa;
+  --text-sec: #9ca3af;
+  --accent: #1164ed; /* Matched to the vibrant blue from the icon's background */
+  --accent-hover: #0e50c0;
+  --border: #3b3e46;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --radius: 8px;
+  --transition: all 0.2s ease;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 340px; /* Slightly wider for better text flow */
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  padding: 16px;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.desc {
+  font-size: 13px;
+  color: var(--text-sec);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.view {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none !important;
+}
+
+input {
+  padding: 12px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  margin-bottom: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: var(--transition);
+}
+
+input::placeholder {
+  color: #6b7280;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(17, 100, 237, 0.2);
+}
+
+button.primary {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 2px 4px rgba(17, 100, 237, 0.2);
+}
+
+button.primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(17, 100, 237, 0.3);
+}
+
+button.primary:active {
+  transform: translateY(0);
+}
+
+button.primary.recording {
+  background-color: #ef4444;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+button.primary.recording:hover {
+  background-color: #dc2626;
+  box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3);
+}
+
+.controls {
+  margin-bottom: 16px;
+}
+
+#status-display {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recording-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 4px #ef4444;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+  100% { transform: scale(0.95); opacity: 1; }
+}
+
+
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-sec);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+/* Base custom scrollbar for dark UI */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-sec);
+}
+
+.transcript-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  height: 70px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-sec);
+  font-family: 'SF Mono', Consolas, Menlo, monospace;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.summary-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  min-height: 180px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  box-shadow: var(--shadow);
+}
+
+.notes-placeholder {
+  color: var(--text-sec);
+  text-align: center;
+  margin-top: 40px;
+  font-style: italic;
+  opacity: 0.7;
+}

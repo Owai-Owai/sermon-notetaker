@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Sermon Notetaker",
+  "version": "1.0",
+  "description": "Automatically captures sermon audio and summarizes key points using AI.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabCapture",
+    "offscreen",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://api.groq.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Sermon Notetaker",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
+}

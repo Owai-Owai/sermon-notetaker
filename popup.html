@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="icons/icon32.png">
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="container">
+    <div id="setup-view" class="view hidden">
+      <h3>API Setup</h3>
+      <p class="desc">Enter your Groq API Key to power the auto-notetaker for free via Whisper-Large and Llama 3.</p>
+      <input type="password" id="api-key-input" placeholder="gsk_..." />
+      <button id="save-key-btn" class="primary">Save Configuration</button>
+    </div>
+
+    <div id="main-view" class="view hidden">
+      <div class="controls">
+        <button id="record-btn" class="primary">
+          <span class="icon">🎙</span> Start Notetaker
+        </button>
+      </div>
+
+      <div id="status-display" class="hidden">
+        <div class="recording-badge"><span class="dot"></span> Recording & Analyzing</div>
+      </div>
+
+      <div id="split-view">
+        <div class="section-title">Live Transcript</div>
+        <div id="live-transcript" class="transcript-box">Listening...</div>
+        
+        <div class="section-title">AI Summary Notes</div>
+        <div id="notes-view" class="summary-box">
+          <div class="notes-placeholder">Waiting for audio context...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+
+</html>
