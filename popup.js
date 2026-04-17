@@ -1,35 +1,11 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const setupView = document.getElementById('setup-view');
     const mainView = document.getElementById('main-view');
-    const apiKeyInput = document.getElementById('api-key-input');
-    const saveKeyBtn = document.getElementById('save-key-btn');
 
     const recordBtn = document.getElementById('record-btn');
     const statusDisplay = document.getElementById('status-display');
     const notesView = document.getElementById('notes-view');
 
     let isRecording = false;
-
-    // Check for API key
-    const storageResult = await chrome.storage.local.get(['openaiApiKey']);
-    if (storageResult.openaiApiKey) {
-        setupView.classList.add('hidden');
-        mainView.classList.remove('hidden');
-    } else {
-        setupView.classList.remove('hidden');
-        mainView.classList.add('hidden');
-    }
-
-    saveKeyBtn.addEventListener('click', async () => {
-        const key = apiKeyInput.value.trim();
-        if (key.startsWith('gsk_')) {
-            await chrome.storage.local.set({ openaiApiKey: key });
-            setupView.classList.add('hidden');
-            mainView.classList.remove('hidden');
-        } else {
-            alert('Please enter a valid Groq API Key starting with gsk_');
-        }
-    });
 
     // Determine state on open
     chrome.runtime.sendMessage({ target: 'background', type: 'GET_STATE' }, (res) => {
@@ -101,13 +77,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
         if (!isRecording) {
-            const result = await chrome.storage.local.get(['openaiApiKey']);
             // Ask Background to start capturing audio of THIS tab
             chrome.runtime.sendMessage({
                 target: 'background',
                 type: 'START_CAP',
-                tabId: tab.id,
-                apiKey: result.openaiApiKey
+                tabId: tab.id
             });
             setRecordingUI(true);
             notesView.innerHTML = '<div class="notes-placeholder">Listening...</div>';

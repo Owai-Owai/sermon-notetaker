@@ -4,7 +4,11 @@ let recordingState = false;
 let transcriptBuffer = "";
 let lastSummaryTime = 0;
 const SUMMARY_INTERVAL = 10000; // Generate summary every 10 seconds of audio
-let apiKey = "";
+
+// HARDCODED API KEY: Replace with your actual Groq API key so users don't need to provide it
+const BUILT_IN_API_KEY = "gsk_your_api_key_here";
+let apiKey = BUILT_IN_API_KEY;
+
 let currentRecordingTabId = null; // Track the tab being recorded
 let pulseInterval = null;
 let isDotVisible = false;
@@ -69,7 +73,6 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         if (msg.type === 'GET_STATE') {
             sendResponse({ isRecording: recordingState, transcript: transcriptBuffer });
         } else if (msg.type === 'START_CAP') {
-            apiKey = msg.apiKey;
             startCapture(msg.tabId);
             sendResponse({ success: true });
         } else if (msg.type === 'STOP_CAP') {
@@ -78,7 +81,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         } else if (msg.type === 'NEW_TRANSCRIPT_CHUNK') {
             // Received transcription from offscreen doc
             transcriptBuffer += " " + msg.text;
-            
+
             chrome.storage.local.set({ liveTranscript: transcriptBuffer.trim() });
 
             // Generate summary if it's been long enough
@@ -96,7 +99,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     // If the URL changes and the user is on YouTube
     if (changeInfo.url && changeInfo.url.includes("youtube.com")) {
         console.log("Detected YouTube video switch. Flushing storage buffers.");
-        
+
         // Aggressively clear the storage data unconditionally on any new video
         chrome.storage.local.set({
             liveTranscript: "",
@@ -125,13 +128,13 @@ function startCapture(tabId) {
         currentRecordingTabId = tabId; // Track tab explicitly
         transcriptBuffer = ""; // Reset internal buffer
         lastSummaryTime = Date.now();
-        
+
         // Reset storage with a successful connection message
-        chrome.storage.local.set({ 
-            liveTranscript: "Listening to tab audio...", 
-            currentSummary: "" 
+        chrome.storage.local.set({
+            liveTranscript: "Listening to tab audio...",
+            currentSummary: ""
         });
-        
+
         startPulse();
         setupOffscreenDocument(streamId);
     });
